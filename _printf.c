@@ -7,6 +7,18 @@
 #include "main.h"
 
 /**
+ *  *  * _putchar - writes the character c to stdout
+ *   *   * @c: The character to print
+ *    *    *
+ *     *     * Return: On success 1.
+ *      *      * On error, -1 is returned, and errno is set appropriately.
+ *       *       */
+int _putchar(char c)
+{
+	        return (write(1, &c, 1));
+}
+
+/**
  * type_char - convert to char
  *
  * @ap: arguments parameters
@@ -48,6 +60,7 @@ int type_string(va_list ap)
 int type_pourc(va_list ap)
 {
 	char stock = '%';
+	(void) ap;
 
 	return (write(1, &stock, 1));
 }
