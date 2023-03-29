@@ -7,24 +7,24 @@
 #include "main.h"
 
 /**
- *  *  * _putchar - writes the character c to stdout
- *   *   * @c: The character to print
- *    *    *
- *     *     * Return: On success 1.
- *      *      * On error, -1 is returned, and errno is set appropriately.
- *       *       */
+ *  *  *  * _putchar - writes the character c to stdout
+ *   *   *   * @c: The character to print
+ *    *    *    *
+ *     *     *     * Return: On success 1.
+ *      *      *      * On error, -1 is returned, and errno is set appropriately.
+ *       *       *       */
 int _putchar(char c)
 {
-	        return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }
 
 /**
- * type_char - convert to char
- *
- * @ap: arguments parameters
- *
- * Return: print char
- */
+ *  * type_char - convert to char
+ *   *
+ *    * @ap: arguments parameters
+ *     *
+ *      * Return: print char
+ *       */
 int type_char(va_list ap)
 {
 	int stock = va_arg(ap, int);
@@ -33,12 +33,12 @@ int type_char(va_list ap)
 }
 
 /**
- * type_string - convert to string
- *
- * @ap: arguments parameters
- *
- * Return: print string
- */
+ *  * type_string - convert to string
+ *   *
+ *    * @ap: arguments parameters
+ *     *
+ *      * Return: print string
+ *       */
 int type_string(va_list ap)
 {
 	int scanlen = 0;
@@ -51,12 +51,12 @@ int type_string(va_list ap)
 }
 
 /**
- * type_pourc - print %
- *
- * @ap: arguments parameters
- *
- * Return: print %
- */
+ *  * type_pourc - print %
+ *   *
+ *    * @ap: arguments parameters
+ *     *
+ *      * Return: print %
+ *       */
 int type_pourc(va_list ap)
 {
 	char stock = '%';
@@ -67,13 +67,13 @@ int type_pourc(va_list ap)
 
 
 /**
- * _printf - convert arguments and print them
- *
- * @format: list of types of arguments
- * passed to the function
- *
- * Return: string + convert arg
- */
+ *  * _printf - convert arguments and print them
+ *   *
+ *    * @format: list of types of arguments
+ *     * passed to the function
+ *      *
+ *       * Return: string + convert arg
+ *        */
 int _printf(const char *const format, ...)
 {
 	va_list ap;
@@ -81,6 +81,7 @@ int _printf(const char *const format, ...)
 	int count =  0;
 	unsigned int compteur1 = 0;
 	unsigned int compteur2 = 0;
+	unsigned int scanlen = 0;
 
 	type_select toa[] = {
 		{"c", type_char},
@@ -91,25 +92,34 @@ int _printf(const char *const format, ...)
 
 
 	va_start(ap, format);
-	if (format[compteur1] == '%' && format[compteur1 + 1] != 0)
+	scanlen = strlen(format);
+
+	if (format[compteur1] == '%' && scanlen <= compteur1)
 	{
 		return (-1);
 	}
 
-	for ( ; format[compteur1] != '\0'; compteur1++)
+	for ( ; format[compteur1] != '\0' && scanlen >= compteur1; compteur1++)
 	{
 		if (format[compteur1] == '%')
 		{
-			for ( ; compteur2 <= 5; compteur2++)
+			if (format[compteur1 + 1] != 'c' && format[compteur1 + 1] != 's' && format[compteur1 + 1] != '%')
+			{
+				write(1, "%r", 2);
+				break;
+			}
+			for ( ; compteur2 <= 4; compteur2++)
+			{
 				if (format[compteur1 + 1] == *toa[compteur2].select)
 				{
 					count += toa[compteur2].f(ap);
-					compteur1 += 2;
 					break;
 				}
+			}
+			compteur1 += 2;
 			compteur2 = 0;
 		}
-		if (format[compteur1] != '\0')
+		if (format[compteur1] != '\0' && scanlen >= compteur1)
 		{
 			count += write(1, &format[compteur1], 1);
 		}
