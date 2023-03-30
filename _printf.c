@@ -27,9 +27,15 @@ int _putchar(char c)
  *       */
 int type_char(va_list ap)
 {
-	int stock = va_arg(ap, int);
+	int stock;
 
-	return (write(1, &stock, 1));
+	stock = va_arg(ap, int);
+
+	if (stock == 0)
+	{
+		stock = 0;
+	}
+	return(write (1, &stock, 1));
 }
 
 /**
@@ -41,17 +47,13 @@ int type_char(va_list ap)
  *       */
 int type_string(va_list ap)
 {
-	int scanlen = 0;
 	char *stock;
-
 	stock = va_arg(ap, char*);
-	if (stock == NULL)
+	if (stock == 0)
 	{
-		stock = "(null)";
+		stock = NULL;
 	}
-
-	scanlen = strlen(stock);
-	return (write(1, stock, scanlen));
+	return (write(1, stock, strlen(stock)));
 }
 
 /**
@@ -91,42 +93,39 @@ int _printf(const char *const format, ...)
 		{"c", type_char},
 		{"s", type_string},
 		{"%", type_pourc},
-		{'\0', NULL}
+		{"\0", NULL}
 	};
 
 
 	va_start(ap, format);
 	scanlen = strlen(format);
 
-	if ((format[compteur1] == '%' && format[compteur1 + 1] == '\0' && scanlen >= compteur1) || format == NULL)
+	while (format[compteur1] != '\0')
 	{
-		return (-1);
-	}
+		if ((format[compteur1] == '%' && format[compteur1 + 1] == '\0' && scanlen <= compteur1) || format == NULL)
+		{
+			return (-1);
+		}
 
-	for ( ; format[compteur1] != '\0' && scanlen >= compteur1; compteur1++)
-	{
 		if (format[compteur1] == '%')
 		{
-			if (format[compteur1 + 1] != 'c' && format[compteur1 + 1] != 's' && format[compteur1 + 1] != '%')
-			{
-				write (1, "%", 1);
-				_putchar(format[compteur1 + 1]);
-				break;
-			}
-			for ( ; compteur2 <= 4; compteur2++)
+
+			compteur2 = 0;
+			for ( ; *toa[compteur2].select != '\0'; compteur2++)
 			{
 				if (format[compteur1 + 1] == *toa[compteur2].select)
 				{
 					count += toa[compteur2].f(ap);
+					compteur1 +=2;
 					break;
 				}
+
 			}
-			compteur1 += 2;
-			compteur2 = 0;
 		}
-		if (format[compteur1] != '\0' && scanlen >= compteur1)
+		if (format[compteur1] != '\0' && format[compteur1] != '%' && scanlen >= compteur1)
 		{
 			count += write(1, &format[compteur1], 1);
+			compteur1++;
 		}
 	}
 	va_end(ap);
