@@ -5,7 +5,6 @@ int reverse_array(char* a, int n)
 	int compteur = 0;
 	int temp = 0;
 	int size = n;
-
 	n = n - 1;
 	while (compteur < n)
 	{
@@ -27,6 +26,23 @@ int type_int(va_list ap)
 	int temp = 0;
 	int count = stock;
 
+	if (stock == 0)
+	{
+		write(1, "00", 2);
+		return (0);
+	}
+	if (stock < 0)
+	{
+		write(1, "-", 1);
+		if (stock == INT_MIN)
+		{
+			stock = INT_MAX; 
+		}
+		else
+		{
+			stock = -stock;
+		}
+	}
 	while(count)
 	{
 		count /= 10;
@@ -35,6 +51,10 @@ int type_int(va_list ap)
 	size = temp;
 
 	returnarray = malloc(size * sizeof(char));
+	if (returnarray == NULL)
+	{
+		return (0);
+	}
 	for (; compteur < size; compteur++)
 	{
 		temp = stock %10;
@@ -44,4 +64,3 @@ int type_int(va_list ap)
 	}
 	return(reverse_array(returnarray, size));
 }
-
