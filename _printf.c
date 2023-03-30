@@ -116,7 +116,7 @@ int _printf(const char *const format, ...)
 			{
 				if (format[compteur1 + 1] != 'c' && format[compteur1 + 1] != 's' && format[compteur1 + 1] != '%')
 				{
-					write(1, "%", 1);
+					count += write(1, "%", 1);
 					compteur1++;
 					break;
 				}
