@@ -4,7 +4,6 @@
 #include <limits.h>
 #include <unistd.h>
 #include <string.h>
-#include "main.h"
 
 /**
  *  *  *  * _putchar - writes the character c to stdout
@@ -49,9 +48,10 @@ int type_string(va_list ap)
 {
 	char *stock;
 	stock = va_arg(ap, char*);
+
 	if (stock == 0)
 	{
-		stock = NULL;
+		stock = "(null)";
 	}
 	return (write(1, stock, strlen(stock)));
 }
@@ -113,13 +113,18 @@ int _printf(const char *const format, ...)
 			compteur2 = 0;
 			for ( ; *toa[compteur2].select != '\0'; compteur2++)
 			{
+				if (format[compteur1 + 1] != 'c' && format[compteur1 + 1] != 's' && format[compteur1 + 1] != '%')
+				{
+					write(1, "%", 1);
+					compteur1++;
+					break;
+				}
 				if (format[compteur1 + 1] == *toa[compteur2].select)
 				{
 					count += toa[compteur2].f(ap);
 					compteur1 +=2;
 					break;
 				}
-
 			}
 		}
 		if (format[compteur1] != '\0' && format[compteur1] != '%' && scanlen >= compteur1)
