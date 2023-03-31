@@ -29,7 +29,7 @@ int type_int(va_list ap)
 
 	if (stock == 0)
 	{
-		return (write(1, "00", 2));
+		return (write(1, "0", 2));
 	}
 	if (stock < 0)
 	{
