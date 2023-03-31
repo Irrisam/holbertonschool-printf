@@ -26,7 +26,4 @@ typedef struct select
 	char *select;
 	int (*f)(va_list);
 } type_select;
-
-extern type_select toa[];
-
 #endif

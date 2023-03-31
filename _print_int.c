@@ -1,5 +1,14 @@
 #include "main.h"
 
+/**
+ * reverse_array - a function that reverses the content
+ * of an array of integers
+ *
+ * @a: array of integers to reverse
+ * @n: the numer of elements to swap
+ *
+ * Return: 0
+ */
 int reverse_array(char* a, int n)
 {
 	int compteur = 0;
@@ -17,6 +26,13 @@ int reverse_array(char* a, int n)
 	return(write(1, a , size));
 }
 
+/**
+ * type_int - convert to int
+ *
+ * @ap: arguments parameters
+ *
+ * Return: print int
+ */
 int type_int(va_list ap)
 {
 	char * returnarray = NULL;
