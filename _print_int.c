@@ -29,7 +29,8 @@ int type_int(va_list ap)
 
 	if (stock == 0)
 	{
-		return (write(1, "0", 2));
+		minuscorrect += (write(1, "0", 1));
+		return (minuscorrect);
 	}
 	if (stock < 0)
 	{
