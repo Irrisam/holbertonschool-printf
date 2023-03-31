@@ -30,13 +30,6 @@ int _printf(const char *const format, ...)
 
 	for (; format[counter1] != '\0'; counter1++)
 	{
-		if (format[counter1] == '%' && format[counter1 + 1] != 'c' && format[counter1 + 1] != 's' &&
-                                format[counter1 + 1] != 'i' && format[counter1 + 1] != 'd' && format[counter1] == '%' && format[counter1 + 1] != '\0')
-                        {
-                                count += write(1, &format[counter1], 1);
-				count += write(1, &format[counter1 + 1], 1);
-				counter1 += 2;
-                        }
 		if (format[counter1] != '%')
 		{
 			count += write(1, &format[counter1], 1);
@@ -45,6 +38,12 @@ int _printf(const char *const format, ...)
 		counter1++;
 		if (format[counter1] == '\0')
 			return (-1);
+
+		if (format[counter1] == '%')
+		{
+			count += write(1, "%", 1);
+			continue;
+		}
 
 		counter2 = 0;
 
