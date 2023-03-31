@@ -4,12 +4,9 @@
  * keeping count of printed bytes
  *@format: given string containing indications for adapted functions
  *Return: count..
-*/
+ */
 int _printf(const char *const format, ...)
 {
-	if (format == NULL)
-		return (-1);
-
 	va_list ap;
 
 	type_select toa[] = {
@@ -21,12 +18,14 @@ int _printf(const char *const format, ...)
 		{"\0", NULL}
 	};
 
-	va_start(ap, format);
-
 	int counter1 = 0;
 	int count = 0;
 
-	for (; format[counter1] != '\0'; i++)
+	va_start(ap, format);
+	if (format == NULL)
+		return (-1);
+
+	for (; format[counter1] != '\0'; counter1++)
 	{
 		if (format[counter1] != '%')
 		{
