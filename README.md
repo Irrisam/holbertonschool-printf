@@ -1,5 +1,5 @@
 
-# # _printf function
+# _printf function
 
 This project is a group project to create our own printf function, which is a commonly used function in the C programming language to print output on the console.
 
@@ -43,8 +43,8 @@ Here are some examples of how to use `_printf`:
 
 int main(void)
 {
-    _printf("Hello, i'm %s!\n", "Taieb");
-    _printf("I'm %d years old.\n", 42);
+    _printf("Hello, i am %s!\n", "Taieb");
+    _printf("I am %d years old.\n", 42);
     _printf("My favorite signs are lion and %% sign and the second one is printed literally.\n");
     _printf("%c and %c are the bests.\n", 'T', 'B');
     return (0);
@@ -53,8 +53,8 @@ int main(void)
 This would output:
 
 ```c
-Hello, i'm Taieb!
-I'm 42 years old.
+Hello, i am Taieb!
+I am 42 years old.
 My favorite signs are lion is % sign and the second one is printed literally.
 T and B are the bests.
 ```
