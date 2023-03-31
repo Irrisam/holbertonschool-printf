@@ -1,55 +1,58 @@
 #include "main.h"
-
+/**
+ * _printf - prints things thanks to external adapted functions,
+ * keeping count of printed bytes
+ *@format: given string containing indications for adapted functions
+ *Return: count..
+*/
 int _printf(const char *const format, ...)
 {
+	if (format == NULL)
+		return (-1);
+
 	va_list ap;
-	unsigned int count =  0, compteur1 = 0, compteur2 = 0, scanlen = 0;
+
 	type_select toa[] = {
+		{"c", type_char},
 		{"s", type_string},
-		{"d", type_int},
 		{"i", type_int},
+		{"d", type_int},
 		{"%", type_pourc},
 		{"\0", NULL}
 	};
 
 	va_start(ap, format);
-	if (format == NULL || (format[compteur1] == '%' &&
-				format[compteur1 + 1] == '\0'))
-		return (-1);
-	scanlen = strlen(format);
-	while (format[compteur1] != '\0')
+
+	int counter1 = 0;
+	int count = 0;
+
+	for (; format[counter1] != '\0'; i++)
 	{
-		if (format[compteur1] == '%')
+		if (format[counter1] != '%')
 		{
-			compteur2 = 0;
-			for ( ; *toa[compteur2].select != '\0'; compteur2++)
-			{
-				if (format[compteur1 + 1] != 'c' && format[compteur1 + 1] != 's'
-						&& format[compteur1 + 1] != '%' && format[compteur1 + 1] != 'd' && format[compteur1 + 1] != 'i')
-				{
-					count += write(1, "%", 1);
-					compteur1++;
-					break;
-				}
-				if (format[compteur1 + 1] == *toa[compteur2].select)
-				{
-					count += toa[compteur2].f(ap);
-					compteur1 += 2;
-					break;
-				}
-				if (format[compteur1 + 1] == *toa[compteur2].select)
-				{
-					count += toa[compteur2].f(ap);
-					compteur1 += 2;
-					break;
-				}
-			}
+			count += write(1, &format[counter1], 1);
+			continue;
 		}
-		if (format[compteur1] != '\0' && format[compteur1] != '%' &&
-				scanlen >= compteur1)
+		counter1++;
+		if (format[counter1] == '\0')
+			return (-1);
+
+		if (format[counter1] == '%')
 		{
-			count += write(1, &format[compteur1], 1);
-			compteur1++;
+			count += write(1, "%", 1);
+			continue;
+		}
+
+		int counter2 = 0;
+
+		while (toa[counter2].select != NULL)
+		{
+			if (format[counter1] == *toa[counter2].select)
+			{
+				count += toa[counter2].f(ap);
+				break;
+			}
+			counter2++;
 		}
 	}
 	va_end(ap);

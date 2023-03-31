@@ -7,7 +7,6 @@
 #include <limits.h>
 #include <unistd.h>
 #include <string.h>
-#
 
 int _putchar(char c);
 int type_char(va_list ap);
