@@ -20,6 +20,7 @@ int _printf(const char *const format, ...)
 
 	int counter1 = 0;
 	int count = 0;
+	int counter2 = 0;
 
 	va_start(ap, format);
 	if (format == NULL)
@@ -42,7 +43,7 @@ int _printf(const char *const format, ...)
 			continue;
 		}
 
-		int counter2 = 0;
+		counter2 = 0;
 
 		while (toa[counter2].select != NULL)
 		{
