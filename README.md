@@ -29,9 +29,13 @@ Our printf function also supports many of the format specifiers used in the stan
 Every format specification starts with a percent sign and ends with a letter. 
 
 Our printf can support :
+
 `%c` - print a single character.
+
 `%s` - print a string of characters.
+
 `%i, %d` - Prints a signed integer in base 10.
+
 `%%` - print a percent sign.
 
 ## Examples
