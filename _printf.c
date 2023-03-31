@@ -2,8 +2,10 @@
 /**
  * _printf - prints things thanks to external adapted functions,
  * keeping count of printed bytes
- *@format: given string containing indications for adapted functions
- *Return: count..
+ *
+ * @format: given string containing indications for adapted functions
+ *
+ * Return: count..
  */
 int _printf(const char *const format, ...)
 {
